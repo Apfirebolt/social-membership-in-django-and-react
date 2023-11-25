@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from accounts.models import CustomUser
+from core.models import UserGroups, Message
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -57,3 +58,19 @@ class ListCustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'email', 'firstName', 'lastName', 'is_staff',)
+
+
+
+class UserGroupsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserGroups
+        fields = ('id', 'name', 'description', 'createdBy', 'createdAt',)
+
+
+class MessageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Message
+        fields = ('id', 'text', 'sender', 'group', 'createdAt',)
+
+
