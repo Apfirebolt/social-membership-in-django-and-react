@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from . serializers import ListCustomUserSerializer, CustomUserSerializer, CustomTokenObtainPairSerializer, MessageSerializer, \
     UserGroupsSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -40,6 +40,19 @@ class CreateUserGroupsApiView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = UserGroups.objects.all()
 
+    def perform_create(self, serializer):
+        request = serializer.context['request']
+        serializer.save(createdBy=request.user)
+
+
+class DetailUserGroupsApiView(RetrieveUpdateDestroyAPIView):
+    serializer_class = UserGroupsSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = UserGroups.objects.all()
+
+    def get_object(self):
+        return super().get_object()
+
 
 class ListMessagesApiView(ListAPIView):
     serializer_class = MessageSerializer
@@ -51,3 +64,16 @@ class CreateMessageApiView(CreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
+
+    def perform_create(self, serializer):
+        request = serializer.context['request']
+        serializer.save(sender=request.user)
+
+
+class DetailMessageApiView(RetrieveUpdateDestroyAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
+
+    def get_object(self):
+        return super().get_object()

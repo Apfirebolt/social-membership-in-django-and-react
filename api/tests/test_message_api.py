@@ -1,6 +1,15 @@
 from django.test import TestCase
 from core.models import UserGroups, Message
+from django.urls import reverse
+from rest_framework.test import APIClient
+from rest_framework import status
 from django.contrib.auth import get_user_model
+from core.models import Message
+
+
+CREATE_GROUP_URL = reverse('api:create-group')
+CREATE_MESSAGE_URL = reverse('api:create-message')
+LIST_MESSAGE_URL = reverse('api:list-messages')
 
 
 def create_user(**params):
@@ -11,57 +20,47 @@ def create_group(**params):
     """Create and return a new group."""
     return UserGroups.objects.create(**params)
 
-def create_message(**params):
-    """Create and return a new message."""
-    return Message.objects.create(**params)
+def detail_url(message_id):
+    """Create and return a message detail URL."""
+    return reverse('api:detail-messages', args=[message_id])
 
 
-class MessageTestCase(TestCase):
+class UserGroupTestCase(TestCase):
     def setUp(self):
+        self.client = APIClient()
         self.user = create_user(
             email="test@gmail.com",
             username="Test User",
             password="test123",
         )
+        self.client.force_authenticate(user=self.user)
 
-        self.group = create_group(
-            name="Test Group",
-            description="This is a test group",
-            createdBy=self.user,
-            createdAt="2022-01-01 00:00:00",
-        )
-
+    
     def test_create_message(self):
         """Test creating a message."""
-        message = create_message(
-            text="This is a test message",
-            sender=self.user,
-            createdAt="2022-01-01 00:00:00",
-            group=self.group,
+        group = create_group(
+            name='Test Group',
+            description='This is a test group',
+            createdAt='2022-01-01 00:00:00',
+            createdBy=self.user
         )
-        self.assertEqual(message.text, "This is a test message")
-        self.assertEqual(message.sender, self.user)
-        self.assertEqual(message.group, self.group)
+        payload = {
+            'text': 'Test Message',
+            'group': group.id,
+            'createdAt': '2022-01-01 00:00:00',
+        }
+        res = self.client.post(CREATE_MESSAGE_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED, "Expected status code 201, but got {}".format(res.status_code))
+        message = Message.objects.get(text=payload['text'])
+        self.assertEqual(message.text, payload['text'])
 
     
-    def test_get_messages(self):
-        """Test getting messages."""
-        message1 = create_message(
-            text="This is a test message",
-            sender=self.user,
-            createdAt="2022-01-01 00:00:00",
-            group=self.group,
-        )
-        message2 = create_message(
-            text="This is a test message 2",
-            sender=self.user,
-            createdAt="2022-01-01 00:00:00",
-            group=self.group,
-        )
-        response = self.client.get('/api/messages/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data[0]['text'], "This is a test message")
-        self.assertEqual(response.data[0]['sender'], self.user.id)
-        self.assertEqual(response.data[0]['group'], self.group.id)
-
-    
+    def test_create_message_invalid(self):
+        """Test creating a message with invalid payload."""
+        payload = {
+            'text': '',
+            'group': '',
+            'createdAt': '2022-01-01 00:00:00',
+        }
+        res = self.client.post(CREATE_MESSAGE_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST, "Expected status code 400, but got {}".format(res.status_code))

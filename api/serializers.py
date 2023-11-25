@@ -62,15 +62,20 @@ class ListCustomUserSerializer(serializers.ModelSerializer):
 
 
 class UserGroupsSerializer(serializers.ModelSerializer):
+
+    
+
     class Meta:
         model = UserGroups
-        fields = ('id', 'name', 'description', 'createdBy', 'createdAt',)
+        fields = ('id', 'name', 'description', 'createdAt',)
+        read_only_fields = ('id', 'createdAt',)
 
 
 class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('id', 'text', 'sender', 'group', 'createdAt',)
+        fields = ('text', 'group', 'createdAt',)
+        read_only_fields = ('sender', 'id')
 
 
