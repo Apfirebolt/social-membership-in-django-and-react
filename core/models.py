@@ -30,3 +30,17 @@ class Message(models.Model):
     class Meta:
         '''Doc string for meta'''
         verbose_name_plural = "Message"
+
+
+class GroupMembers(models.Model):
+    group = models.ForeignKey(UserGroups, on_delete=models.CASCADE, related_name='group_members')
+    member = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='member')
+    createdAt = models.DateTimeField("Created At", auto_now_add=True)
+    
+
+    def __str__(self):
+        return self.group.name + " - " + self.member.username
+
+    class Meta:
+        '''Doc string for meta'''
+        verbose_name_plural = "Group Members"

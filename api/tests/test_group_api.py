@@ -127,11 +127,4 @@ class UserGroupTestCase(TestCase):
         group = UserGroups.objects.filter(name=payload['name'])
         self.assertEqual(len(group), 0)
 
-
-
-
-
-
-    
-
     

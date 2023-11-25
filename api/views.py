@@ -1,10 +1,10 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, DestroyAPIView
 from . serializers import ListCustomUserSerializer, CustomUserSerializer, CustomTokenObtainPairSerializer, MessageSerializer, \
-    UserGroupsSerializer
+    UserGroupsSerializer, GroupMembersSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from accounts.models import CustomUser
-from core.models import UserGroups, Message
+from core.models import UserGroups, Message, GroupMembers
 
 
 class CreateCustomUserApiView(CreateAPIView):
@@ -74,6 +74,24 @@ class DetailMessageApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
+
+    def get_object(self):
+        return super().get_object()
+    
+
+class CreateGroupMembersApiView(CreateAPIView):
+    serializer_class = GroupMembersSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = GroupMembers.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+
+class DeleteGroupMembersApiView(DestroyAPIView):
+    serializer_class = GroupMembersSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = GroupMembers.objects.all()
 
     def get_object(self):
         return super().get_object()

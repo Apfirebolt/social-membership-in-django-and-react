@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import CustomUser
-from core.models import UserGroups, Message
+from core.models import UserGroups, Message, GroupMembers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -78,4 +78,11 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = ('text', 'group', 'createdAt',)
         read_only_fields = ('sender', 'id')
 
+
+class GroupMembersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GroupMembers
+        fields = ('group', 'member', 'createdAt',)
+        read_only_fields = ('createdAt',)
 

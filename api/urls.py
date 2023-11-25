@@ -1,6 +1,7 @@
 from django.urls import path
 from . views import ListCustomUsersApiView, CreateCustomUserApiView, DetailCustomUserApiView, ListUserGroupsApiView, \
-    CreateUserGroupsApiView, ListMessagesApiView, CreateMessageApiView, DetailUserGroupsApiView, DetailMessageApiView
+    CreateUserGroupsApiView, ListMessagesApiView, CreateMessageApiView, DetailUserGroupsApiView, DetailMessageApiView, \
+    CreateGroupMembersApiView, DeleteGroupMembersApiView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -16,6 +17,9 @@ urlpatterns = [
     path('groups/<int:pk>', DetailUserGroupsApiView.as_view(), name='detail-groups'),
     path('create-group', CreateUserGroupsApiView.as_view(), name='create-group'),
     path('messages', ListMessagesApiView.as_view(), name='list-messages'),
+    path('messages/<int:pk>', DetailMessageApiView.as_view(), name='detail-messages'),
+    path('group-members', CreateGroupMembersApiView.as_view(), name='create-group-members'),
+    path('group-members/<int:pk>', DeleteGroupMembersApiView.as_view(), name='delete-group-members'),
     path('messages/<int:pk>', DetailMessageApiView.as_view(), name='detail-messages'),
     path('create-message', CreateMessageApiView.as_view(), name='create-message'),
     

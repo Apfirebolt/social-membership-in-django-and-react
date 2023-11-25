@@ -64,3 +64,50 @@ class UserGroupTestCase(TestCase):
         }
         res = self.client.post(CREATE_MESSAGE_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST, "Expected status code 400, but got {}".format(res.status_code))
+
+    
+    def test_update_message(self):
+        """Test updating a message."""
+        group = create_group(
+            name='Test Group',
+            description='This is a test group',
+            createdAt='2022-01-01 00:00:00',
+            createdBy=self.user
+        )
+        message = Message.objects.create(
+            text='Test Message',
+            group=group,
+            createdAt='2022-01-01 00:00:00',
+            sender=self.user
+        )
+        payload = {
+            'text': 'Test Message Updated',
+            'group': group.id,
+            'createdAt': '2022-01-01 00:00:00',
+        }
+        url = detail_url(message.id)
+        res = self.client.put(url, payload)
+        self.assertEqual(res.status_code, status.HTTP_200_OK, "Expected status code 200, but got {}".format(res.status_code))
+        message.refresh_from_db()
+        self.assertEqual(message.text, payload['text'])
+
+    
+    def test_delete_message(self):
+        """Test deleting a message."""
+        group = create_group(
+            name='Test Group',
+            description='This is a test group',
+            createdAt='2022-01-01 00:00:00',
+            createdBy=self.user
+        )
+        message = Message.objects.create(
+            text='Test Message',
+            group=group,
+            createdAt='2022-01-01 00:00:00',
+            sender=self.user
+        )
+        url = detail_url(message.id)
+        res = self.client.delete(url)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT, "Expected status code 204, but got {}".format(res.status_code))
+        message_exists = Message.objects.filter(id=message.id).exists()
+        self.assertFalse(message_exists)
