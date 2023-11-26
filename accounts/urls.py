@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls.static import static
 from social_membership import settings
-from . views import LoginView, RegisterUser, UpdateAccountSettings, AccountDashboard
+from . views import LoginView, RegisterUser, UpdateAccountSettings, AccountDashboard, UserGroupDetailView
 import django.contrib.auth.views as AuthViews
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('register', RegisterUser.as_view(), name='register'),
     path('profile', UpdateAccountSettings.as_view(), name='profile'),
     path('dashboard', AccountDashboard.as_view(), name='dashboard'),
+    path('group/<int:pk>', UserGroupDetailView.as_view(), name='group-detail'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,5 @@
+from typing import Any
+from django.db import models
 from django.shortcuts import render
 from django.views.generic import FormView, UpdateView, DetailView
 from . forms import UserRegistrationForm, UpdateAccountSettings
@@ -8,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.contrib.auth import authenticate, login
 from .models import CustomUser
+from core.models import UserGroups, Message, GroupMembers
 from django.contrib import messages
 
 
@@ -69,5 +72,34 @@ class AccountDashboard(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = 'accounts/dashboard.html'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        # pass all objects of UserGroups to the template
+        kwargs['groups'] = UserGroups.objects.all()
+        return super().get_context_data(**kwargs)
+
     def get_object(self, queryset=None):
         return CustomUser.objects.get(id=self.request.user.id)
+    
+
+
+class UserGroupDetailView(LoginRequiredMixin, DetailView):
+
+    model = UserGroups
+    template_name = 'group/group_detail.html'
+    context_object_name = 'group'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        # pass all members and messages of the group to the template
+        kwargs['messages'] = Message.objects.filter(group=self.get_object())
+        kwargs['members'] = GroupMembers.objects.filter(group=self.get_object())
+        return super().get_context_data(**kwargs)
+
+    def get_object(self):
+        # get the group id from the url
+        group_id = self.kwargs.get('pk')
+        group_obj = UserGroups.objects.get(id=group_id)
+        return group_obj
+        
+
+    
+

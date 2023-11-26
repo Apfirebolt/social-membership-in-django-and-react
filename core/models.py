@@ -4,7 +4,7 @@ from social_membership.settings import AUTH_USER_MODEL
 
 class UserGroups(models.Model):
     name = models.CharField("Group Name", max_length=255)
-    description = models.TextField("First Name", blank=True, null=True)
+    description = models.TextField("Group Description", blank=True, null=True)
     createdBy = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='group_created_by')
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
     
