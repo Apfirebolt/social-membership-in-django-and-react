@@ -99,6 +99,18 @@ class UserGroupDetailView(LoginRequiredMixin, DetailView):
         group_id = self.kwargs.get('pk')
         group_obj = UserGroups.objects.get(id=group_id)
         return group_obj
+    
+    # handle post request
+    def post(self, request, *args, **kwargs):
+        # get the group object
+        group_obj = self.get_object()
+        # get the message from the form
+        message = request.POST.get('message')
+        # create a message object
+        Message.objects.create(group=group_obj, sender=request.user, text=message)
+        return HttpResponseRedirect(reverse('accounts:group-detail', kwargs={'pk': group_obj.id}))
+    
+
         
 
     

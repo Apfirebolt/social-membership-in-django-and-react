@@ -7,6 +7,7 @@ venv/
 */settings/local.py
 /staticfiles/*
 /mediafiles/*
+/media/*
 __pycache__/
 /.vscode/
 

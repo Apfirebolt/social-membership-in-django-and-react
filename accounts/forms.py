@@ -52,6 +52,10 @@ class UserRegistrationForm(forms.ModelForm):
 
 class UpdateAccountSettings(forms.ModelForm):
 
+    error_messages = {
+        'valid_images': {"Image uploaded is not in valid form, must be in png or jpg format!"}
+    }
+
     username = forms.CharField(label=("Please Enter Username"),
                                widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     firstName = forms.CharField(label=("Please Enter Your First Name"),
@@ -59,11 +63,22 @@ class UpdateAccountSettings(forms.ModelForm):
     
     lastName = forms.CharField(label=("Please Enter Your Last Name"),
                              widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    profile_image = forms.ImageField(label=("Please Upload Your Profile Image"),
+                                    widget=forms.FileInput(attrs={'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}),
+                                    validators=[FileExtensionValidator(['png', 'jpg'])])
+    
+    def clean_profile_image(self):
+        # if size of profile image is > 2 MB return error
+        profile_image = self.cleaned_data.get('profile_image')
+        if profile_image.size > 2097152:
+            raise forms.ValidationError("Image file too large ( > 2mb )")
+        return profile_image
+ 
 
     class Meta:
 
         model = CustomUser
-        fields = ['username', 'firstName', 'lastName',]
+        fields = ['username', 'firstName', 'lastName', 'profile_image',]
 
     
 

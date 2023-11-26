@@ -7,7 +7,7 @@ Social Membership - Group Detail
 {% block content %}
 <div class="relative bg-gray-50">
     <main class="lg:relative">
-        <div class="mx-auto max-w-7xl w-full text-center lg:py-16 lg:text-left">
+        <div class="mx-auto max-w-7xl w-full text-center py-4 lg:text-left">
             <div class="lg:w-1/2 my-2">
                 <h1
                     class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-5xl"
@@ -20,6 +20,9 @@ Social Membership - Group Detail
             </div>
 
             {% if members|length > 0 %}
+                <div class="bg-gray-100 p-4">
+                    <h2 class="text-2xl font-bold">{{ members|length }} Members in this group</h2>
+                </div>
                 {% for member in members %}
                 <div class="bg-gray-100 p-4">
                     <p>{{ member }}</p>
@@ -34,7 +37,7 @@ Social Membership - Group Detail
             {% endif %}
 
             {% if messages|length > 0 %}
-                <div class="bg-gray-100 p-4">
+                <div class="bg-gray-100 p-4 my-2 text-center">
                     <h2 class="text-2xl font-bold">Messages</h2>
                 </div>
                 {% for message in messages %}
@@ -49,6 +52,27 @@ Social Membership - Group Detail
                     <p>No messages yet.</p>
                 </div>
             {% endif %}
+        </div>
+
+        <div class="mx-auto max-w-7xl w-full text-center py-2 lg:text-left">
+            <form action="" method="POST" class="mt-9 grid grid-cols-1 gap-y-6">
+                {% csrf_token %}
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Enter Message</label>
+                    <div class="mt-1">
+                        <textarea name="message" id="message" cols="30" rows="10"
+                            class="block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md">
+                        </textarea>
+                    </div>
+                </div>
+                
+                <div class="text-right sm:col-span-2">
+                    <button type="submit"
+                        class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
+                        Add Message
+                    </button>
+                </div>
+            </form>
         </div>
     </main>
 </div>

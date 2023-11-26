@@ -32,8 +32,15 @@ Social Membership - Profile
                         <p class="mt-4 text-lg text-gray-500 sm:mt-3">
                             You can update your profile settings below.
                         </p>
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" class="w-64 my-2 h-48 rounded"  alt="{{ user.username }}'s Profile Image" class="mt-4">
+                        {% else %}
+                            <p class="mt-4 text-lg text-gray-500 sm:mt-3">
+                                You have not uploaded a profile image yet.
+                            </p>
+                        {% endif %}
 
-                        <form action="" method="POST" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <form action="" method="POST" enctype="multipart/form-data" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                             {% csrf_token %}
                              
                             <div>
@@ -56,10 +63,17 @@ Social Membership - Profile
                                 </div>
                             </div>
 
+                            <div>
+                                <label for="profile_image" class="block text-sm font-medium text-gray-700">Upload/Update Profile Image</label>
+                                <div class="mt-1">
+                                    {{ form.profile_image }}
+                                </div>
+                            </div>
+
                             {% if form.errors %}
                                 <ul>
                                     {% for key,value in form.errors.items %}
-                                        <li>{{ value|escape }}</li>
+                                        <li class="text-red-700">{{ value|escape }}</li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
