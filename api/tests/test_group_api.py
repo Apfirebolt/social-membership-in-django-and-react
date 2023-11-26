@@ -10,8 +10,6 @@ CREATE_GROUP_URL = reverse('api:create-group')
 LIST_GROUP_URL = reverse('api:list-groups')
 
 
-
-
 def create_user(**params):
     """Create and return a new user."""
     return get_user_model().objects.create_user(**params)

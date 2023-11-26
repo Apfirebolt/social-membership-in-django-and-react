@@ -95,3 +95,7 @@ class DeleteGroupMembersApiView(DestroyAPIView):
 
     def get_object(self):
         return super().get_object()
+    
+
+def my_scheduled_job():
+    print("Hello, world!")
