@@ -11,6 +11,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login
 from .models import CustomUser
 from core.models import UserGroups, Message, GroupMembers
+from core.forms import GroupForm
 from django.contrib import messages
 
 
@@ -109,6 +110,23 @@ class UserGroupDetailView(LoginRequiredMixin, DetailView):
         # create a message object
         Message.objects.create(group=group_obj, sender=request.user, text=message)
         return HttpResponseRedirect(reverse('accounts:group-detail', kwargs={'pk': group_obj.id}))
+    
+
+class CreateGroup(LoginRequiredMixin, FormView):
+
+    template_name = 'group/create_group.html'
+    success_url = reverse_lazy('accounts:dashboard')
+    form_class = GroupForm
+    model = UserGroups
+
+    def form_valid(self, form):
+        # perform a action here
+        group_obj = form.save(commit=False)
+        group_obj.createdBy = self.request.user
+        group_obj.save()    
+        messages.add_message(self.request, messages.INFO, 'You have successfully created a group!')
+        return HttpResponseRedirect(reverse('accounts:dashboard'))
+    
     
 
         
