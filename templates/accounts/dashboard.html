@@ -1,12 +1,16 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% block head %}
+    
+    <script src="{% static 'js/message.js' %}"></script>
+{% endblock %}
 {% block title %}
     Social Membership - Profile
 {% endblock %}
 
 {% block content %}
 <div class="relative bg-gray-50">
-  <main class="lg:relative">
+  <main class="lg:relative" id="app">
     {% if messages %}
         {% for message in messages %}
             <div class="bg-red-100 text-center border px-4 py-3 rounded relative" role="alert">
