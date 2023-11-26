@@ -11,9 +11,6 @@ from .models import CustomUser
 from django.contrib import messages
 
 
-def home_view(request):
-    return render(request, 'accounts/dashboard.html', {})
-
 
 class RegisterUser(FormView):
     template_name = 'accounts/register.html'
@@ -34,14 +31,14 @@ class RegisterUser(FormView):
 class LoginView(View):
 
     def post(self, request):
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=email, password=password)
         if user is not None:
             messages.add_message(self.request, messages.INFO,
                                  'You have successfully logged in! Please continue to your dashboard!')
             login(request, user)
-            return HttpResponseRedirect(reverse('accounts:dashboard'))
+            return HttpResponseRedirect(reverse('home'))
         else:
             messages.add_message(self.request, messages.ERROR, 'Failed to Login, please try again!')
             return HttpResponseRedirect(self.request.path_info)
