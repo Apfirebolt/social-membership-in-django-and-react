@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import FormView, UpdateView
-from . forms import UserRegistrationForm
+from django.views.generic import FormView, UpdateView, DetailView
+from . forms import UserRegistrationForm, UpdateAccountSettings
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -38,7 +38,7 @@ class LoginView(View):
             messages.add_message(self.request, messages.INFO,
                                  'You have successfully logged in! Please continue to your dashboard!')
             login(request, user)
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('accounts:dashboard'))
         else:
             messages.add_message(self.request, messages.ERROR, 'Failed to Login, please try again!')
             return HttpResponseRedirect(self.request.path_info)
@@ -49,8 +49,8 @@ class LoginView(View):
 
 class UpdateAccountSettings(LoginRequiredMixin, UpdateView):
     model = CustomUser
-    form_class = UserRegistrationForm
-    template_name = 'accounts/update_settings.html'
+    form_class = UpdateAccountSettings
+    template_name = 'accounts/profile.html'
 
     def get_object(self, queryset=None):
         return CustomUser.objects.get(id=self.request.user.id)
@@ -62,4 +62,12 @@ class UpdateAccountSettings(LoginRequiredMixin, UpdateView):
         user_obj.admin = False
         user_obj.save()
         messages.add_message(self.request, messages.INFO, 'You have successfully updated your account settings')
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('accounts:dashboard'))
+
+
+class AccountDashboard(LoginRequiredMixin, DetailView):
+    model = CustomUser
+    template_name = 'accounts/dashboard.html'
+
+    def get_object(self, queryset=None):
+        return CustomUser.objects.get(id=self.request.user.id)

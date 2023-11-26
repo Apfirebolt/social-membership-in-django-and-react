@@ -48,4 +48,23 @@ class UserRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+
+class UpdateAccountSettings(forms.ModelForm):
+
+    username = forms.CharField(label=("Please Enter Username"),
+                               widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    firstName = forms.CharField(label=("Please Enter Your First Name"),
+                             widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    
+    lastName = forms.CharField(label=("Please Enter Your Last Name"),
+                             widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+
+    class Meta:
+
+        model = CustomUser
+        fields = ['username', 'firstName', 'lastName',]
+
+    
+
 

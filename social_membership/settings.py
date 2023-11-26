@@ -119,6 +119,9 @@ CRONJOBS = [
     ('*/1 * * * *', 'social_membership.api.views.my_scheduled_job')
 ]
 
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/dashboard'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
