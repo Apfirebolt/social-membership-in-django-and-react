@@ -1,7 +1,7 @@
 from typing import Any
 from django.db import models
 from django.shortcuts import render
-from django.views.generic import FormView, UpdateView, DetailView
+from django.views.generic import FormView, UpdateView, DetailView, TemplateView
 from . forms import UserRegistrationForm, UpdateAccountSettings
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -127,6 +127,29 @@ class CreateGroup(LoginRequiredMixin, FormView):
         messages.add_message(self.request, messages.INFO, 'You have successfully created a group!')
         return HttpResponseRedirect(reverse('accounts:dashboard'))
     
+
+class Membership(LoginRequiredMixin, TemplateView):
+
+    template_name = 'group/membership.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        # pass all objects of UserGroups to the template
+        kwargs['groups'] = UserGroups.objects.all()
+        kwargs['members'] = CustomUser.objects.all()
+        return super().get_context_data(**kwargs)
+    
+
+    def post(self, request, *args, **kwargs):
+        # get the group object
+        group_id = request.POST.get('group')
+        user_id = request.POST.get('user')
+        # create a message object
+        group = UserGroups.objects.get(id=group_id)
+        user = CustomUser.objects.get(id=user_id)
+        GroupMembers.objects.create(group=group, member=user)
+        # return formatted response
+        messages.add_message(self.request, messages.INFO, format(user.username) + ' has been added to ' + format(group.name) + ' group!')
+        return HttpResponseRedirect(reverse('accounts:dashboard'))
     
 
         
