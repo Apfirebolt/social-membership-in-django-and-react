@@ -62,6 +62,13 @@ Social Membership - Register
                                 </div>
                             </div>
 
+                            <div>
+                                <label for="profile_image" class="block text-sm font-medium text-gray-700">Upload/Update Profile Image</label>
+                                <div class="mt-1">
+                                    {{ form.profile_image }}
+                                </div>
+                            </div>
+
                             {% if form.errors %}
                                 <ul>
                                     {% for key,value in form.errors.items %}

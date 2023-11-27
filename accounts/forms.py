@@ -18,10 +18,13 @@ class UserRegistrationForm(forms.ModelForm):
                                widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     email = forms.EmailField(label=("Please Enter Your Email"),
                              widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    profile_image = forms.ImageField(label=("Please Upload Your Profile Image"),
+                                    widget=forms.FileInput(attrs={'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}),
+                                    validators=[FileExtensionValidator(['png', 'jpg'])])
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email',]
+        fields = ['username', 'email', 'profile_image',]
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -41,6 +44,13 @@ class UserRegistrationForm(forms.ModelForm):
                 code='username_required'
             )
         return username
+    
+    def clean_profile_image(self):
+        # if size of profile image is > 2 MB return error
+        profile_image = self.cleaned_data.get('profile_image')
+        if profile_image.size > 2097152:
+            raise forms.ValidationError("Image file too large ( > 2mb )")
+        return profile_image
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
