@@ -23,13 +23,17 @@ Social Membership - Group Detail
                 <div class="bg-gray-100 p-4">
                     <h2 class="text-2xl font-bold">{{ members|length }} Members in this group</h2>
                 </div>
-                {% for member in members %}
-                <div class="bg-gray-100 p-4">
-                    <p class="bg-pink-400">{{ member }}</p>
-                    <span>{{ member }}</span>
+                
+                <div class="grid grid-cols-4 gap-4">
+                    {% for member in members %}
+                    <div class="bg-gray-100 text-gray-800 my-2 shadow-lg p-4">
+                        <p>
+                            {{ member.member.username }}
+                        </p>
+                        <span class="font-bold text-lg text-gray-700">{{ member.level }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-
             {% else %}
                 <div class="bg-gray-100 text-red-800 text-xl p-4">
                     <p>No members yet.</p>

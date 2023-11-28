@@ -110,6 +110,16 @@ class UserGroupDetailView(LoginRequiredMixin, DetailView):
         # create a message object
         Message.objects.create(group=group_obj, sender=request.user, text=message)
         return HttpResponseRedirect(reverse('accounts:group-detail', kwargs={'pk': group_obj.id}))
+        
+    
+    # delete view
+    def delete(self, request, *args, **kwargs):
+        # get the group object
+        group_obj = self.get_object()
+        # delete the group object
+        group_obj.delete()
+        messages.add_message(self.request, messages.INFO, 'You have successfully deleted the group!')
+        return HttpResponseRedirect(reverse('accounts:dashboard'))
     
 
 class CreateGroup(LoginRequiredMixin, FormView):
