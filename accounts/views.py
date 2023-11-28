@@ -143,10 +143,15 @@ class Membership(LoginRequiredMixin, TemplateView):
         # get the group object
         group_id = request.POST.get('group')
         user_id = request.POST.get('user')
+        level = request.POST.get('level')
         # create a message object
         group = UserGroups.objects.get(id=group_id)
         user = CustomUser.objects.get(id=user_id)
-        GroupMembers.objects.create(group=group, member=user)
+        # check if member already exists
+        if GroupMembers.objects.filter(group=group, member=user).exists():
+            messages.add_message(self.request, messages.ERROR, format(user.username) + ' is already a member of ' + format(group.name) + ' group!')
+            return HttpResponseRedirect(reverse('accounts:dashboard'))
+        GroupMembers.objects.create(group=group, member=user, level=level)
         # return formatted response
         messages.add_message(self.request, messages.INFO, format(user.username) + ' has been added to ' + format(group.name) + ' group!')
         return HttpResponseRedirect(reverse('accounts:dashboard'))
