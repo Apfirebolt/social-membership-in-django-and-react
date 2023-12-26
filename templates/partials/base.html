@@ -1,23 +1,24 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Digifix - Service Portal{% endblock %}</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=PT+Sans&family=Roboto&display=swap" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="{% static 'js/main.js' %}"></script>
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        {% include 'partials/header.html' %}
-        {% block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Digifix - Service Portal{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=PT+Sans&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 
-        {% endblock %}
-        {% include 'partials/footer.html' %}
-
-    </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    {% include 'partials/header.html' %} {% block content %} {% endblock %}
+    {% include 'partials/footer.html' %}
+  </body>
 </html>

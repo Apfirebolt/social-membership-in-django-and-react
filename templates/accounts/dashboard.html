@@ -24,7 +24,7 @@
           <span class="block xl:inline">Dashboard</span>
         </h1>
         <a href="{% url 'accounts:create-group' %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Create Group</a>
-        <a href="{% url 'accounts:membership' %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Membership</a>
+        <a href="{% url 'accounts:membership' %}" class="bg-orange-800 my-2 text-white px-3 py-2 ml-2 rounded-md">Membership</a>
       </div>
         <div class="grid grid-cols-3 my-3 gap-4">
             {% for group in groups %}
@@ -37,6 +37,9 @@
             {% endfor %}
         </div>
     </div>
+    [[ myName ]]
+    
   </main>
+  <script src="{% static 'js/dashboard.js' %}"></script>
 </div>
 {% endblock %}
