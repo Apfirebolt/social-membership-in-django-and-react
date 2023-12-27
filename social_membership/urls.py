@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(('api.urls', 'api'), namespace='api')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('levels/', include(('levels.urls', 'levels'), namespace='levels')),
     path('api-schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
     path('api-docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
