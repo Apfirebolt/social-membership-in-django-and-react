@@ -31,7 +31,7 @@
                 <h2 class="text-2xl font-bold">{{ sell.amount }}</h2>
                 <p class="text-gray-600 mb-3">{{ sell.seller }}</p>
                 
-                <a href="{% url 'sells:sell-update' sell.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 ml-2 rounded-md">Update Sell</a>
+                <a href="{% url 'sells:sell-update' sell.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Update Sell</a>
             </div>
             {% endfor %}
         </div>

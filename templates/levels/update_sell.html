@@ -37,28 +37,28 @@ Social Membership - Update Affiliate
                             {% csrf_token %}
                              
                             <div>
-                                <label for="lead" class="block text-sm font-medium text-gray-700">Lead User</label>
+                                <label for="lead" class="block text-sm font-medium text-gray-700">Sold Amount</label>
                                 <div class="mt-1">
-                                    {{ form.lead }}
+                                    {{ form.amount }}
                                 </div>
                             </div>
                             <div>
-                                <label for="username" class="block text-sm font-medium text-gray-700">Subject User</label>
+                                <label for="username" class="block text-sm font-medium text-gray-700">Sold By</label>
                                 <div class="mt-1">
-                                    {{ form.subject }}
+                                    {{ form.seller }}
                                 </div>
                             </div>
 
                             <div>
-                                <label for="level" class="block text-sm font-medium text-gray-700">Enter Level</label>
+                                <label for="level" class="block text-sm font-medium text-gray-700">Buyer</label>
                                 <div class="mt-1">
-                                    {{ form.level }}
+                                    {{ form.buyer }}
                                 </div>
                             </div>
                             <div>
-                                <label for="share_percentage" class="block text-sm font-medium text-gray-700">Share Percentage</label>
+                                <label for="share_percentage" class="block text-sm font-medium text-gray-700">Location</label>
                                 <div class="mt-1">
-                                    {{ form.share_percentage }}
+                                    {{ form.location }}
                                 </div>
                             </div>
 
@@ -73,7 +73,7 @@ Social Membership - Update Affiliate
                             <div class="text-right sm:col-span-2">
                                 <button type="submit"
                                     class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
-                                    Update Affiliate
+                                    Update Sell
                                 </button>
                             </div>
                         </form>

@@ -65,7 +65,7 @@ class ListPlotSellView(LoginRequiredMixin, ListView):
 
 class UpdatePlotSellView(LoginRequiredMixin, UpdateView):
     model = PlotSell
-    template_name = 'levels/update_affiliate.html'
+    template_name = 'levels/update_sell.html'
     context_object_name = 'sell'
     form_class = PlotSellForm
 
@@ -93,8 +93,8 @@ class CreatePlotSellView(LoginRequiredMixin, FormView):
         # perform a action here
         sell_obj = form.save(commit=False)
         sell_obj.save()    
-        messages.add_message(self.request, messages.INFO, 'You have successfully created a level!')
-        return HttpResponseRedirect(reverse('levels:list'))
+        messages.add_message(self.request, messages.INFO, 'You have successfully addad a Plot sell!')
+        return HttpResponseRedirect(reverse('sells:list'))
     
 
 
