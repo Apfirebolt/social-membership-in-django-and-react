@@ -33,7 +33,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField('Staff', default=False)
     profile_image = models.ImageField("Profile Image", upload_to='profile_image/', blank=True, null=True)
     is_superuser = models.BooleanField('Super User', default=False)
-    level = models.IntegerField("Level", default=0)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
 
@@ -43,3 +42,24 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         '''Doc string for meta'''
         verbose_name_plural = "User"
+
+
+class UserStats(models.Model):
+    related_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    total_earning = models.IntegerField("Total Earning", default=0)
+    total_withdrawal = models.IntegerField("Total Withdrawal", default=0)
+    total_referral = models.IntegerField("Total Referral", default=0)
+    total_referral_earning = models.IntegerField("Total Referral Earning", default=0)
+    total_referral_withdrawal = models.IntegerField("Total Referral Withdrawal", default=0)
+    total_referral_balance = models.IntegerField("Total Referral Balance", default=0)
+    
+
+    def __str__(self) -> str:
+        return self.related_user.email + ' -> ' + self.total_earning
+    
+    class Meta:
+        '''Doc string for meta'''
+        verbose_name_plural = "User Stats"
+
+
+
