@@ -19,28 +19,80 @@ class ListLevelView(LoginRequiredMixin, ListView):
         return Level.objects.all()
     
 
-class DetailLevelView(LoginRequiredMixin, DetailView):
+class UpdateLevelView(LoginRequiredMixin, UpdateView):
     model = Level
-    template_name = 'levels/detail_level.html'
+    template_name = 'levels/update_affiliate.html'
     context_object_name = 'level'
+    form_class = LevelForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    def get_object(self):
+        # get the level id from the url
+        level_id = self.kwargs.get('pk')
+        level_obj = Level.objects.get(id=level_id)
+        return level_obj
+
+    def form_valid(self, form):
+        # perform a action here
+        level_obj = form.save(commit=False)
+        level_obj.save()    
+        messages.add_message(self.request, messages.INFO, 'You have successfully updated a level!')
+        return HttpResponseRedirect(reverse('levels:list'))
     
 
 class CreateLevelView(LoginRequiredMixin, FormView):
 
     template_name = 'levels/add_affiliate.html'
-    success_url = reverse_lazy('accounts:dashboard')
     form_class = LevelForm
     model = Level
 
     def form_valid(self, form):
         # perform a action here
-        group_obj = form.save(commit=False)
-        group_obj.createdBy = self.request.user
-        group_obj.save()    
+        level_obj = form.save(commit=False)
+        level_obj.createdBy = self.request.user
+        level_obj.save()    
+        messages.add_message(self.request, messages.INFO, 'You have successfully created a level!')
+        return HttpResponseRedirect(reverse('levels:list'))
+    
+
+class ListPlotSellView(LoginRequiredMixin, ListView):
+    model = PlotSell
+    template_name = 'levels/list_sell.html'
+    context_object_name = 'sells'
+
+    def get_queryset(self):
+        return PlotSell.objects.all()
+    
+
+class UpdatePlotSellView(LoginRequiredMixin, UpdateView):
+    model = PlotSell
+    template_name = 'levels/update_affiliate.html'
+    context_object_name = 'sell'
+    form_class = PlotSellForm
+
+    def get_object(self):
+        # get the sell id from the url
+        sell_id = self.kwargs.get('pk')
+        sell_obj = PlotSell.objects.get(id=sell_id)
+        return sell_obj
+
+    def form_valid(self, form):
+        # perform a action here
+        sell_obj = form.save(commit=False)
+        sell_obj.save()    
+        messages.add_message(self.request, messages.INFO, 'You have successfully updated a sell!')
+        return HttpResponseRedirect(reverse('sells:list'))
+    
+
+class CreatePlotSellView(LoginRequiredMixin, FormView):
+
+    template_name = 'levels/add_sell.html'
+    form_class = PlotSellForm
+    model = PlotSell
+
+    def form_valid(self, form):
+        # perform a action here
+        sell_obj = form.save(commit=False)
+        sell_obj.save()    
         messages.add_message(self.request, messages.INFO, 'You have successfully created a level!')
         return HttpResponseRedirect(reverse('levels:list'))
     

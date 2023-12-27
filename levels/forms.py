@@ -30,16 +30,22 @@ class LevelForm(forms.ModelForm):
 
 class PlotSellForm(forms.ModelForm):
     error_messages = {
-        'description_required': ("Description is a required field."),
-        'name_required': ("Name is a required field."),
+        'amount_required': ("Amount is a required field."),
+        'seller_required': ("Seller is a required field."),
+        'buyer_required': ("Buyer is a required field."),
+        'location_required': ("Location is a required field."),
     }
-    name = forms.CharField(label=("Name"),
+    amount = forms.CharField(label=("Amount"),
                                 widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
-    description = forms.CharField(label=("Description"),
-                                widget=forms.Textarea(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}),
+    seller = forms.ModelChoiceField(label=("Select Seller"),
+                                queryset=CustomUser.objects.all(),
+                                widget=forms.Select(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}),
                                 )
-    
+    buyer = forms.CharField(label=("Buyer"),
+                                widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    location = forms.CharField(label=("Location"),
+                                widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
 
     class Meta:
         model = PlotSell
-        fields = ['name', 'description']
+        fields = ['amount', 'seller', 'buyer', 'location']
