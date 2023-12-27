@@ -120,6 +120,16 @@ CRONJOBS = [
     ('*/1 * * * *', 'social_membership.api.views.my_scheduled_job')
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/0',  # Adjust as needed
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/accounts/dashboard'
 

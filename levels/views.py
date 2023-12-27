@@ -1,4 +1,6 @@
 from typing import Any
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from django.views.generic import FormView, UpdateView, DetailView, TemplateView, ListView
 from . forms import LevelForm, PlotSellForm
 from django.http import HttpResponseRedirect
@@ -54,6 +56,8 @@ class CreateLevelView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect(reverse('levels:list'))
     
 
+# cache this view for 1 minute
+@method_decorator(cache_page(60), name='dispatch')
 class ListPlotSellView(LoginRequiredMixin, ListView):
     model = PlotSell
     template_name = 'levels/list_sell.html'
