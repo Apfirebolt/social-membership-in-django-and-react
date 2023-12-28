@@ -68,7 +68,7 @@ class PlotImages(models.Model):
     createdAt = models.DateTimeField("Created At", auto_now_add=True)
 
     def __str__(self):
-        return self.plot.location + " - " + str(self.image)
+        return self.plot.location + " - " + str(self.title)
 
     class Meta:
         '''Doc string for meta'''

@@ -1,0 +1,46 @@
+{% extends 'partials/base.html' %} {% load static %} {% block head %}
+
+<script src="{% static 'js/message.js' %}"></script>
+{% endblock %} {% block title %} Social Membership - Plot Detail {% endblock %}
+{% block content %}
+<div class="relative bg-gray-50">
+  <main class="lg:relative" id="app">
+    {% if messages %} {% for message in messages %}
+    <div
+      class="bg-red-100 text-center border px-4 py-3 rounded relative"
+      role="alert"
+    >
+      <span class="block sm:inline">{{ message }}</span>
+    </div>
+    {% endfor %} {% endif %}
+    <div class="mx-auto max-w-7xl w-full text-center lg:py-16 lg:text-left">
+      <div class="lg:w-1/2">
+        <h1
+          class="text-4xl my-3 tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl"
+        >
+          <span class="block xl:inline">Plot Images</span>
+        </h1>
+        <a
+          href="{% url 'plots:create-plot-image' %}"
+          class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md"
+          >Create Plot Image</a
+        >
+        <a
+          href="{% url 'plots:create-plot' %}"
+          class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md"
+          >Create Plot</a
+        >
+      </div>
+      <div class="grid grid-cols-3 my-3 gap-4">
+        <p><strong>Plot Name:</strong> {{ plot.location }}</p>
+      </div>
+      <div class="grid grid-cols-3 my-3 gap-4">
+        {% for image in plot.plot_images.all %}
+        <img src="{{ image.image.url }}" alt="{{ image.alt }}" />
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</div>
+{% endblock %}

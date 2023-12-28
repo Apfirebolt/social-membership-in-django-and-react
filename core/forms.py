@@ -54,7 +54,7 @@ class PlotImageForm(forms.ModelForm):
                                 )
     
     class Meta:
-        model = Plot
+        model = PlotImages
         fields = ['plot', 'title', 'image']
         required = ['plot', 'title']
 

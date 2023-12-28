@@ -26,7 +26,11 @@ SECRET_KEY = '+jn#akd3!j+bi4)u5r2c-yl3a^q_h!2@u!tem(98xduf6vii2m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'http://aspper20.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1'
+    ]
 
 
 # Application definition
@@ -88,14 +92,21 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_membership',
-        'USER': 'postgres',
-        'PASSWORD': 'pass123',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'social_membership',
+#         'USER': 'postgres',
+#         'PASSWORD': 'pass123',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -119,16 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
 CRONJOBS = [
     ('*/1 * * * *', 'social_membership.api.views.my_scheduled_job')
 ]
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/0',  # Adjust as needed
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/accounts/dashboard'

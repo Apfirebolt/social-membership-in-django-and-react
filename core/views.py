@@ -1,5 +1,4 @@
-from django.utils.decorators import method_decorator
-from django.views.generic import FormView, UpdateView, ListView
+from django.views.generic import FormView, UpdateView, ListView, DetailView
 from . forms import PlotForm, PlotImageForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -36,6 +35,18 @@ class UpdatePlotView(LoginRequiredMixin, UpdateView):
         level_obj.save()    
         messages.add_message(self.request, messages.INFO, 'You have successfully updated a plot!')
         return HttpResponseRedirect(reverse('plots:plot-list'))
+    
+
+class DetailPlotView(LoginRequiredMixin, DetailView):
+    model = Plot
+    template_name = 'plots/detail_plot.html'
+    context_object_name = 'plot'
+
+    def get_object(self):
+        # get the level id from the url
+        plot_id = self.kwargs.get('pk')
+        plot_obj = Plot.objects.get(id=plot_id)
+        return plot_obj
     
 
 class CreatePlotView(LoginRequiredMixin, FormView):

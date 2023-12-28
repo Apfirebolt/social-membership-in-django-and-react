@@ -32,6 +32,7 @@
                 <p class="text-gray-600 mb-3">{{ plot.price }}</p>
                 
                 <a href="{% url 'plots:plot-update' plot.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Update Plot</a>
+                <a href="{% url 'plots:plot-detail' plot.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">View Plot</a>
             </div>
             {% endfor %}
         </div>
