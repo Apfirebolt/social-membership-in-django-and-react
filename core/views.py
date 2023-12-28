@@ -1,6 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, UpdateView, ListView
-from . forms import PlotForm
+from . forms import PlotForm, PlotImageForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -51,4 +51,27 @@ class CreatePlotView(LoginRequiredMixin, FormView):
         level_obj.save()    
         messages.add_message(self.request, messages.INFO, 'You have successfully created a plot!')
         return HttpResponseRedirect(reverse('plots:plot-list'))
+    
+
+class ListPlotImageView(LoginRequiredMixin, ListView):
+    model = PlotImages
+    template_name = 'plots/list_plot_images.html'
+    context_object_name = 'plot_images'
+
+    def get_queryset(self):
+        return PlotImages.objects.all()
+    
+
+class CreatePlotImageView(LoginRequiredMixin, FormView):
+
+    template_name = 'plots/add_plot_image.html'
+    form_class = PlotImageForm
+    model = PlotImages
+
+    def form_valid(self, form):
+        # perform a action here
+        level_obj = form.save(commit=False)
+        level_obj.save()    
+        messages.add_message(self.request, messages.INFO, 'You have successfully created a plot image!')
+        return HttpResponseRedirect(reverse('plots:plot-images'))
     

@@ -39,4 +39,24 @@ class PlotForm(forms.ModelForm):
         fields = ['location', 'price', 'description']
 
 
+class PlotImageForm(forms.ModelForm):
+
+    error_messages = {
+        'plot_required': ("Plot is a required field."),
+        'title_required': ("Title is a required field."),
+    }
+    plot = forms.ModelChoiceField(label=("Plot"), queryset=Plot.objects.all(),
+                                widget=forms.Select(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    title = forms.CharField(label=("Title"),
+                                widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+    image = forms.ImageField(label=("Image"),
+                                widget=forms.ClearableFileInput(),
+                                )
+    
+    class Meta:
+        model = Plot
+        fields = ['plot', 'title', 'image']
+        required = ['plot', 'title']
+
+
 
