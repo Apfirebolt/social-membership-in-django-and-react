@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_crontab',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -125,10 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
-
-CRONJOBS = [
-    ('*/1 * * * *', 'social_membership.api.views.my_scheduled_job')
 ]
 
 LOGOUT_REDIRECT_URL = '/'
