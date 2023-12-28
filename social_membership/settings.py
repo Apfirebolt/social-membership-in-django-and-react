@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'http://aspper20.pythonanywhere.com',
+    'aspper20.pythonanywhere.com',
     'localhost',
     '127.0.0.1'
     ]
