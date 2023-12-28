@@ -18,6 +18,14 @@ class Level(models.Model):
         '''Doc string for meta'''
         verbose_name_plural = "Level"
 
+    def get_all_leads_recursive(self):
+        '''Doc string for get_all_leads_recursive'''
+        leads = []
+        leads.append(self.lead)
+        if self.level > 0:
+            leads.extend(self.subject.get_all_leads_recursive())
+        return leads
+
 
 class PlotSell(models.Model):
     amount = models.IntegerField("Amount", default=0)

@@ -44,3 +44,32 @@ class GroupMembers(models.Model):
     class Meta:
         '''Doc string for meta'''
         verbose_name_plural = "Group Members"
+
+
+class Plot(models.Model):
+    location = models.CharField("Location", max_length=255)
+    price = models.IntegerField("Price", default=0)
+    description = models.TextField("Description", blank=True, null=True)
+    createdBy = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='plot_created_by')
+    createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+    def __str__(self):
+        return self.location + " - " + str(self.price)
+
+    class Meta:
+        '''Doc string for meta'''
+        verbose_name_plural = "Plot"
+
+
+class PlotImages(models.Model):
+    plot = models.ForeignKey(Plot, on_delete=models.CASCADE, related_name='plot_images')
+    image = models.ImageField(upload_to='plot_images')
+    title = models.CharField("Title", max_length=255, blank=True, null=True)
+    createdAt = models.DateTimeField("Created At", auto_now_add=True)
+
+    def __str__(self):
+        return self.plot.location + " - " + str(self.image)
+
+    class Meta:
+        '''Doc string for meta'''
+        verbose_name_plural = "Plot Images"

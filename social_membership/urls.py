@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(('api.urls', 'api'), namespace='api')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('plots/', include(('core.urls', 'plots'), namespace='plots')),
     path('levels/', include(('levels.urls.level_urls', 'levels'), namespace='levels')),
     path('sells/', include(('levels.urls.sell_urls', 'sells'), namespace='sells')),
     path('api-schema/', SpectacularAPIView.as_view(), name='schema'),

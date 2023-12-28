@@ -96,6 +96,7 @@ class CreatePlotSellView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         # perform a action here
         sell_obj = form.save(commit=False)
+        # Update multilevel sell
         sell_obj.save()    
         messages.add_message(self.request, messages.INFO, 'You have successfully addad a Plot sell!')
         return HttpResponseRedirect(reverse('sells:list'))
