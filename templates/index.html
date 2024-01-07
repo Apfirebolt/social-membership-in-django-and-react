@@ -1,31 +1,200 @@
-{% extends 'partials/base.html' %}
-{% load static %}
-{% block title %}
-    Social Membership - Home
-{% endblock %}
-
+{% extends 'partials/base.html' %} 
+{% load static %} 
+{% block title %} Social Membership - Home {% endblock %} 
 {% block content %}
-    <div class="relative bg-gray-50">
-      <div class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-          <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-              <div class="sm:text-center lg:text-left">
-                <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span class="block xl:inline">Social</span>
-                  <span class="block text-indigo-600 xl:inline">Membership</span>
-                </h1>
-                <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Social Membership is a social media platform that allows users to share their thoughts and ideas with the world.
-                </p>
-              </div>
-            </main>
+<div class="bg-white">
+  <main>
+    <!-- Hero section -->
+    <div class="relative">
+      <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
+      <div class="max-w-10xl mx-auto sm:px-6 my-3 lg:px-8">
+        <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
+          <div class="absolute inset-0">
+            <img class="h-full w-full object-cover" src="{% static 'images/hero.png' %}" alt="Real Estate">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply"></div>
+          </div>
+          <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+            <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              <span class="block text-white">Aryan Infra</span>
+              <span class="block text-indigo-200">Real Estate</span>
+            </h1>
+            <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
+              Buy your dream home with us. Plots available at Prayagraj, Lucknow and Varanasi. Check the gallery for the images.
+            </p>
           </div>
         </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0">
-          <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="">
+      </div>
+    </div>
+
+    <!-- Alternating Feature Sections -->
+    <div class="relative pt-16 pb-32 overflow-hidden">
+      <div class="mt-12">
+        <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
+          <div class="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
+            <div>
+              <div class="mt-6">
+                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
+                  Dream Home with Us
+                </h2>
+                <p class="mt-4 text-lg text-gray-500">
+                  Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
+                </p>
+                <div class="mt-6">
+                  <a href="#" class="inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700">
+                    Get started
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-12 sm:mt-16 lg:mt-0 lg:col-start-1">
+            <div class="pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
+              <img class="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none" src="{% static 'images/1.png' %}" alt="Customer profile user interface">
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Gradient Feature Section -->
+    <div class="bg-gradient-to-r from-purple-800 to-indigo-700">
+      <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
+        <h2 class="text-3xl font-extrabold text-white tracking-tight">
+          Featured Plot Listings
+        </h2>
+        <p class="mt-4 max-w-3xl text-lg text-purple-200">
+          Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit aliquam sit nisl euismod mattis in.
+        </p>
+        <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
+          <div>
+            <div>
+              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                <!-- Heroicon name: outline/inbox -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+              </span>
+            </div>
+            <div class="mt-6">
+              <h3 class="text-lg font-medium text-white">Unlimited Inboxes</h3>
+              <p class="mt-2 text-base text-purple-200">
+                Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                <!-- Heroicon name: outline/users -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+            </div>
+            <div class="mt-6">
+              <h3 class="text-lg font-medium text-white">Manage Team Members</h3>
+              <p class="mt-2 text-base text-purple-200">
+                Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                <!-- Heroicon name: outline/trash -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </span>
+            </div>
+            <div class="mt-6">
+              <h3 class="text-lg font-medium text-white">Spam Report</h3>
+              <p class="mt-2 text-base text-purple-200">
+                Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+                <!-- Heroicon name: outline/pencil-alt -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </span>
+            </div>
+            <div class="mt-6">
+              <h3 class="text-lg font-medium text-white">Compose in Markdown</h3>
+              <p class="mt-2 text-base text-purple-200">
+                Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats section -->
+    <div class="relative bg-gray-900">
+      <div class="h-80 absolute inset-x-0 bottom-0 xl:top-0 xl:h-full">
+        <div class="h-full w-full xl:grid xl:grid-cols-2">
+          <div class="h-full xl:relative xl:col-start-2">
+            <img class="h-full w-full object-cover opacity-25 xl:absolute xl:inset-0" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops">
+            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-gray-900 xl:inset-y-0 xl:left-0 xl:h-full xl:w-32 xl:bg-gradient-to-r"></div>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
+        <div class="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
+          <h2 class="text-sm font-semibold tracking-wide uppercase">
+            <span class="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">New Listings</span>
+          </h2>
+          <p class="mt-3 text-3xl font-extrabold text-white">Get All New Plot Listings Here</p>
+          <div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
+            <p>
+              <span class="block text-2xl font-bold text-white">8K+</span>
+              <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Companies</span> use laoreet amet lacus nibh integer quis.</span>
+            </p>
+
+            <p>
+              <span class="block text-2xl font-bold text-white">25K+</span>
+              <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Countries around the globe</span> lacus nibh integer quis.</span>
+            </p>
+
+            <p>
+              <span class="block text-2xl font-bold text-white">98%</span>
+              <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Customer satisfaction</span> laoreet amet lacus nibh integer quis.</span>
+            </p>
+
+            <p>
+              <span class="block text-2xl font-bold text-white">12M+</span>
+              <span class="mt-1 block text-base text-gray-300"><span class="font-medium text-white">Issues resolved</span> lacus nibh integer quis.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-white">
+      <div class="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
+        <h2 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <span class="block">Ready to get started?</span>
+          <span class="block bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Get in touch or create an account.</span>
+        </h2>
+        <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
+          <a href="#" class="flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700">
+            Learn more
+          </a>
+          <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-800 bg-indigo-50 hover:bg-indigo-100">
+            Get started
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
 {% endblock %}
-
