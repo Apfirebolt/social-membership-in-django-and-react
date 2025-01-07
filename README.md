@@ -2,10 +2,12 @@
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
 ![Django Rest Framework](https://img.shields.io/badge/django%20rest-ff1709?style=for-the-badge&logo=django&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+![Vue.js](https://img.shields.io/badge/vuejs-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
 
 # Social Membership app using Django and React
 
-This is a social membership app written in Python, Django and React.
+This is a social membership app written in Python, Django and Django Rest Framework. This also uses Vue JS for some front-end use cases.
+This social membership app has a multi-level marketing model and has incensitives based on the level of the user for each sell made.
 
 ## Deployment using Gunicorn
 

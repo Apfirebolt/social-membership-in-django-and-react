@@ -18,30 +18,32 @@
             </div>
         {% endfor %}
     {% endif %}
+    
     <div class="mx-auto max-w-7xl w-full text-center lg:py-16 lg:text-left">
       <div class="lg:w-1/2">
         <h1 class="text-4xl my-3 tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-          <span class="block xl:inline">Dashboard</span>
+          <span class="block xl:inline">Dashboard, [[ myName ]]</span>
         </h1>
-        <a href="{% url 'accounts:create-group' %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Create Group</a>
-        <a href="{% url 'accounts:membership' %}" class="bg-orange-800 my-2 text-white px-3 py-2 ml-2 rounded-md">Membership</a>
-        <a href="{% url 'sells:create-sell' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Sell</a>
-        <a href="{% url 'levels:create-level' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Level</a>
-        <a href="{% url 'plots:create-plot' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Plot</a>
-        <a href="{% url 'plots:create-plot-image' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Plot Image</a>
-      </div>
-        <div class="grid grid-cols-3 my-3 gap-4">
-            {% for group in groups %}
-            <div class="bg-gray-100 p-4">
-                <h2 class="text-2xl font-bold">{{ group.name }}</h2>
-                <p class="text-gray-600 mb-3">{{ group.description }}</p>
-
-                <a href="{% url 'accounts:group-detail' group.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">View Group</a>
-            </div>
-            {% endfor %}
+        <div class="flex flex-wrap">
+          <a href="{% url 'accounts:create-group' %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Create Group</a>
+          <a href="{% url 'accounts:membership' %}" class="bg-orange-800 my-2 text-white px-3 py-2 ml-2 rounded-md">Membership</a>
+          <a href="{% url 'sells:create-sell' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Sell</a>
+          <a href="{% url 'levels:create-level' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Level</a>
+          <a href="{% url 'plots:create-plot' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Plot</a>
+          <a href="{% url 'plots:create-plot-image' %}" class="bg-orange-800 my-2 text-white px-3 ml-2 py-2 rounded-md">Create Plot Image</a>
         </div>
+      </div>
+      <div class="grid grid-cols-3 my-3 gap-4">
+          {% for group in groups %}
+          <div class="bg-gray-100 p-4">
+              <h2 class="text-2xl font-bold">{{ group.name }}</h2>
+              <p class="text-gray-600 mb-3">{{ group.description }}</p>
+
+              <a href="{% url 'accounts:group-detail' group.pk %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">View Group</a>
+          </div>
+          {% endfor %}
+      </div>
     </div>
-    [[ myName ]]
     
   </main>
   <script src="{% static 'js/dashboard.js' %}"></script>

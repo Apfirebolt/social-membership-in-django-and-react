@@ -1,7 +1,12 @@
+import SampleComponent from './components/sample-component.js';
+
 const { createApp, ref, onMounted } = Vue;
 
 createApp({
   delimiters: ["[[", "]]"], // Change the default delimiters to [[ and ]]
+  components: {
+    SampleComponent,
+  },
   setup() {
     onMounted(() => {
       console.log("mounted");
@@ -13,4 +18,5 @@ createApp({
       myName,
     };
   },
+
 }).mount("#app");
