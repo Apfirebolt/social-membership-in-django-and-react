@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
     
-    <script src="{% static 'js/message.js' %}"></script>
+<script src="{% static 'js/message.js' %}"></script>
 {% endblock %}
 {% block title %}
     Social Membership - Profile
@@ -20,9 +20,9 @@
     {% endif %}
     
     <div class="mx-auto max-w-7xl w-full text-center lg:py-16 lg:text-left">
-      <div class="lg:w-1/2">
+      <div>
         <h1 class="text-4xl my-3 tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-          <span class="block xl:inline">Dashboard, [[ myName ]]</span>
+          <span class="block xl:inline">Dashboard, {{ user.email }}</span>
         </h1>
         <div class="flex flex-wrap">
           <a href="{% url 'accounts:create-group' %}" class="bg-orange-800 my-2 text-white px-3 py-2 rounded-md">Create Group</a>

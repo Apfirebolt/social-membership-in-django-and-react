@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserGroups, Plot, PlotImages
+from django.core.exceptions import ValidationError
 
 
 class GroupForm(forms.ModelForm):
@@ -12,7 +13,14 @@ class GroupForm(forms.ModelForm):
     description = forms.CharField(label=("Description"),
                                 widget=forms.Textarea(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}),
                                 )
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        
+        # Check if the name exists and its length is less than 4
+        if name and len(name) < 4:
+            raise ValidationError("Name cannot be shorter than 4 letters.")
     
+        return name
 
     class Meta:
         model = UserGroups
