@@ -4,6 +4,14 @@
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/vuejs-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
 
+## Running Tests
+
+```
+python manage.py test core.tests.PlotImageViewsTest --verbosity=2
+
+python manage.py test core --verbosity=1
+```
+
 # Social Membership app using Django and React
 
 This is a social membership app written in Python, Django and Django Rest Framework. This also uses Vue JS for some front-end use cases.
