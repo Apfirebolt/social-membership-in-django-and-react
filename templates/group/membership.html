@@ -1,79 +1,119 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+
 {% block title %}
-Social Membership - Membership
+Social Membership - Membership Management
 {% endblock %}
 
 {% block content %}
-<div class="relative">
-    <main class="lg:relative">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="bg-red-100 text-center border px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        <div class="relative bg-green-100">
-            <div class="lg:absolute lg:inset-0">
-                <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                    <img class="h-56 w-full object-cover lg:absolute lg:h-full"
-                        src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
-                        alt="">
-                </div>
+<div class="min-h-screen bg-slate-50 flex flex-col justify-between">
+  <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl w-full mx-auto">
+      
+      <!-- Flash Messages -->
+      {% if messages %}
+        <div class="mb-6 space-y-2">
+          {% for message in messages %}
+            <div class="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-sm" role="alert">
+              <svg class="h-5 w-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <span class="font-medium">{{ message }}</span>
             </div>
-            <div
-                class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
-                <div class="lg:pr-8">
-                    <div class="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-                        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                            Let's work together
-                        </h2>
-                        <p class="mt-4 text-lg text-gray-500 sm:mt-3">
-                            Add a Member to a given group
-                        </p>
-                        <form action="" method="POST" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                            {% csrf_token %}
-                            <div>
-                                <label for="member" class="block text-sm font-medium text-gray-700">Select Member</label>
-                                <div class="mt-1">
-                                    <select name="user" id="user" class="block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md">
-                                        {% for user in members %}
-                                            <option value="{{ user.id }}">{{ user.username }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                                <label for="group" class="block text-sm font-medium text-gray-700">Select Group</label>
-                                <div class="mt-1">
-                                    <select name="group" id="group" class="block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md">
-                                        {% for group in groups %}
-                                            <option value="{{ group.id }}">{{ group.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="level" class="block text-sm font-medium text-gray-700">Member Level</label>
-                                <div class="mt-1">
-                                    <input type="text" name="level" class="block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md" placeholder="Enter Level" />
-                                </div>
-                            </div>
-                            
-                            <div class="text-right sm:col-span-2">
-                                <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
-                                    Add Membership
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
-    </main>
+      {% endif %}
+
+      <!-- Main Card Grid -->
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- Left Column: Form Section (7 Cols) -->
+        <div class="p-8 sm:p-12 lg:col-span-7 flex flex-col justify-between">
+          <div>
+            <!-- Breadcrumb Navigation -->
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-2">
+              <a href="{% url 'accounts:dashboard' %}" class="hover:underline">Dashboard</a>
+              <span>/</span>
+              <span>Membership Assignment</span>
+            </div>
+
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">
+              Assign Membership
+            </h1>
+            <p class="mt-2 text-sm text-slate-500">
+              Link an active member account to a specific property group with designated clearance levels.
+            </p>
+
+            <!-- Form -->
+            <form action="" method="POST" class="mt-8 space-y-5">
+              {% csrf_token %}
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Select Member -->
+                <div>
+                  <label for="user" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Select Member</label>
+                  <select name="user" id="user" class="block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 transition">
+                    {% for user in members %}
+                      <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <!-- Select Group -->
+                <div>
+                  <label for="group" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Select Group</label>
+                  <select name="group" id="group" class="block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 transition">
+                    {% for group in groups %}
+                      <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Member Level Input -->
+              <div>
+                <label for="level" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Member Level / Role</label>
+                <input 
+                  type="text" 
+                  name="level" 
+                  id="level" 
+                  class="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 transition" 
+                  placeholder="e.g., Administrator, Contributor, or Viewer" 
+                />
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                <a href="{% url 'accounts:dashboard' %}" class="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">
+                  Cancel
+                </a>
+                <button type="submit"
+                    class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Add Membership
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: Image & Decorative Panel (5 Cols) -->
+        <div class="relative hidden lg:block lg:col-span-5 bg-slate-900">
+          <img class="absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-luminosity"
+              src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80"
+              alt="Team membership">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="relative flex h-full flex-col justify-end p-10 text-white">
+            <div class="rounded-xl border border-white/10 bg-white/10 p-5 backdrop-blur-md">
+              <h3 class="text-sm font-semibold text-indigo-200">Role-Based Access</h3>
+              <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                Assign structured levels and responsibilities to members within each group to control property updates, approvals, and viewing permissions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
 </div>
 {% endblock %}
