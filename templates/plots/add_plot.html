@@ -1,81 +1,114 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+
 {% block title %}
 Social Membership - Add Plot
 {% endblock %}
 
 {% block content %}
-<div class="relative">
-    <main class="lg:relative">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="bg-red-100 text-center border px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">{{ message }}</span>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <div class="relative bg-green-100">
-            <div class="lg:absolute lg:inset-0">
-                <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                    <img class="h-56 w-full object-cover lg:absolute lg:h-full"
-                        src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
-                        alt="">
-                </div>
+<div class="min-h-screen bg-slate-50 flex flex-col justify-between">
+  <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl w-full mx-auto">
+      
+      <!-- Flash Messages -->
+      {% if messages %}
+        <div class="mb-6 space-y-2">
+          {% for message in messages %}
+            <div class="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-sm" role="alert">
+              <svg class="h-5 w-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <span class="font-medium">{{ message }}</span>
             </div>
-            <div
-                class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
-                <div class="lg:pr-8">
-                    <div class="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-                        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                            Social Membership - Add Plot 
-                        </h2>
-                        <p class="mt-4 text-lg text-gray-500 sm:mt-3">
-                            Plot data to be added
-                        </p>
-
-                        <form action="" method="POST" enctype="multipart/form-data" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                            {% csrf_token %}
-                             
-                            <div>
-                                <label for="amount" class="block text-sm font-medium text-gray-700">Plot Location</label>
-                                <div class="mt-1">
-                                    {{ form.location }}
-                                </div>
-                            </div>
-                            <div>
-                                <label for="seller" class="block text-sm font-medium text-gray-700">Plot Price</label>
-                                <div class="mt-1">
-                                    {{ form.price }}
-                                </div>
-                            </div>
-
-                            <div class="sm:col-span-2">
-                                <label for="location" class="block text-sm font-medium text-gray-700">Plot Description</label>
-                                <div class="mt-1">
-                                    {{ form.description }}
-                                </div>
-                            </div>
-
-                            {% if form.errors %}
-                                <ul>
-                                    {% for key,value in form.errors.items %}
-                                        <li>{{ value|escape }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                            
-                            <div class="text-right sm:col-span-2">
-                                <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
-                                    Add Plot
-                                </button>
-                            </div>
-                        </form>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
-    </main>
+      {% endif %}
+
+      <!-- Main Card Grid -->
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- Left Column: Form Section (7 Cols) -->
+        <div class="p-8 sm:p-12 lg:col-span-7 flex flex-col justify-between">
+          <div>
+            <!-- Breadcrumb Navigation -->
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 mb-2">
+              <a href="{% url 'accounts:dashboard' %}" class="hover:underline">Dashboard</a>
+              <span>/</span>
+              <span>Plots Inventory</span>
+            </div>
+
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">
+              Add New Plot
+            </h1>
+            <p class="mt-2 text-sm text-slate-500">
+              Specify the location, pricing, and key features for the new land inventory listing.
+            </p>
+
+            <!-- Form -->
+            <form action="" method="POST" enctype="multipart/form-data" class="mt-8 space-y-5">
+              {% csrf_token %}
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Plot Location -->
+                <div>
+                  <label for="{{ form.location.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Plot Location</label>
+                  {{ form.location }}
+                </div>
+
+                <!-- Plot Price -->
+                <div>
+                  <label for="{{ form.price.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Plot Price</label>
+                  {{ form.price }}
+                </div>
+              </div>
+
+              <!-- Plot Description -->
+              <div>
+                <label for="{{ form.description.id_for_label }}" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">Plot Description</label>
+                {{ form.description }}
+              </div>
+
+              <!-- Form Errors -->
+              {% if form.errors %}
+                <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-xs text-red-700 space-y-1">
+                  {% for key, value in form.errors.items %}
+                    <p><span class="font-bold uppercase">{{ key }}:</span> {{ value|escape }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <!-- Action Buttons -->
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                <a href="{% url 'accounts:dashboard' %}" class="text-xs font-medium text-indigo-600 hover:text-indigo-500">
+                  Cancel &amp; Return
+                </a>
+                <button type="submit"
+                    class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Add Plot
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: Image & Decorative Panel (5 Cols) -->
+        <div class="relative hidden lg:block lg:col-span-5 bg-slate-900">
+          <img class="absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-luminosity"
+              src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80"
+              alt="Plot inventory management">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="relative flex h-full flex-col justify-end p-10 text-white">
+            <div class="rounded-xl border border-white/10 bg-white/10 p-5 backdrop-blur-md">
+              <h3 class="text-sm font-semibold text-indigo-200">Inventory Catalog</h3>
+              <p class="mt-2 text-xs text-slate-300 leading-relaxed">
+                Add freehold plots to your active database with clear specifications, pricing tiers, and regional location markers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
 </div>
 {% endblock %}
