@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+
 {% block title %}
 Social Membership - Update Affiliate
 {% endblock %}
@@ -7,76 +8,96 @@ Social Membership - Update Affiliate
 {% block content %}
 <div class="relative">
     <main class="lg:relative">
+        {# Flash Messages #}
         {% if messages %}
-            {% for message in messages %}
-                <div class="bg-red-100 text-center border px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">{{ message }}</span>
-                </div>
-            {% endfor %}
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% elif message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% else %}bg-blue-100 border-blue-400 text-blue-700{% endif %} text-center border px-4 py-3 rounded relative mb-4" role="alert">
+                        <span class="block sm:inline">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
+
         <div class="relative bg-green-100">
             <div class="lg:absolute lg:inset-0">
                 <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
                     <img class="h-56 w-full object-cover lg:absolute lg:h-full"
                         src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
-                        alt="">
+                        alt="Affiliate collaboration">
                 </div>
             </div>
-            <div
-                class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
+
+            <div class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
                 <div class="lg:pr-8">
                     <div class="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-                        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                            Social Membership - Add Level 
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                            Social Membership - Update Affiliate 
                         </h2>
-                        <p class="mt-4 text-lg text-gray-500 sm:mt-3">
-                            Levels define affiliate marketing level
+                        <p class="mt-4 text-lg text-gray-600 sm:mt-3">
+                            Update the affiliate marketing level and share settings.
                         </p>
 
-                        <form action="" method="POST" enctype="multipart/form-data" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <form action="" method="POST" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                             {% csrf_token %}
                              
                             <div>
-                                <label for="lead" class="block text-sm font-medium text-gray-700">Lead User</label>
-                                <div class="mt-1">
+                                <label for="{{ form.lead.id_for_label }}" class="block text-sm font-medium text-gray-700">Lead User</label>
+                                <div class="mt-1 [&_select]:w-full [&_input]:w-full [&_select]:rounded-md [&_input]:rounded-md [&_select]:border-gray-300 [&_input]:border-gray-300 [&_select]:shadow-sm [&_input]:shadow-sm">
                                     {{ form.lead }}
                                 </div>
+                                {% if form.lead.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.lead.errors.0 }}</p>
+                                {% endif %}
                             </div>
+
                             <div>
-                                <label for="username" class="block text-sm font-medium text-gray-700">Subject User</label>
-                                <div class="mt-1">
+                                <label for="{{ form.subject.id_for_label }}" class="block text-sm font-medium text-gray-700">Subject User</label>
+                                <div class="mt-1 [&_select]:w-full [&_input]:w-full [&_select]:rounded-md [&_input]:rounded-md [&_select]:border-gray-300 [&_input]:border-gray-300 [&_select]:shadow-sm [&_input]:shadow-sm">
                                     {{ form.subject }}
                                 </div>
+                                {% if form.subject.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.subject.errors.0 }}</p>
+                                {% endif %}
                             </div>
 
                             <div>
-                                <label for="level" class="block text-sm font-medium text-gray-700">Enter Level</label>
-                                <div class="mt-1">
+                                <label for="{{ form.level.id_for_label }}" class="block text-sm font-medium text-gray-700">Enter Level</label>
+                                <div class="mt-1 [&_select]:w-full [&_input]:w-full [&_select]:rounded-md [&_input]:rounded-md [&_select]:border-gray-300 [&_input]:border-gray-300 [&_select]:shadow-sm [&_input]:shadow-sm">
                                     {{ form.level }}
                                 </div>
-                            </div>
-                            <div>
-                                <label for="share_percentage" class="block text-sm font-medium text-gray-700">Share Percentage</label>
-                                <div class="mt-1">
-                                    {{ form.share_percentage }}
-                                </div>
+                                {% if form.level.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.level.errors.0 }}</p>
+                                {% endif %}
                             </div>
 
-                            {% if form.errors %}
-                                <ul>
-                                    {% for key,value in form.errors.items %}
-                                        <li>{{ value|escape }}</li>
-                                    {% endfor %}
-                                </ul>
+                            <div>
+                                <label for="{{ form.share_percentage.id_for_label }}" class="block text-sm font-medium text-gray-700">Share Percentage</label>
+                                <div class="mt-1 [&_select]:w-full [&_input]:w-full [&_select]:rounded-md [&_input]:rounded-md [&_select]:border-gray-300 [&_input]:border-gray-300 [&_select]:shadow-sm [&_input]:shadow-sm">
+                                    {{ form.share_percentage }}
+                                </div>
+                                {% if form.share_percentage.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.share_percentage.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+
+                            {# General / Non-field Errors #}
+                            {% if form.non_field_errors %}
+                                <div class="sm:col-span-2 rounded-md bg-red-50 p-4 border border-red-200">
+                                    <div class="text-sm text-red-700">
+                                        {% for error in form.non_field_errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             {% endif %}
                             
                             <div class="text-right sm:col-span-2">
                                 <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
+                                    class="inline-flex justify-center py-2.5 px-6 shadow-md text-base font-semibold bg-orange-800 hover:bg-orange-700 text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                                     Update Affiliate
                                 </button>
                             </div>
-                        </form>
                         </form>
                     </div>
                 </div>

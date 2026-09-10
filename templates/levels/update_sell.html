@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+
 {% block title %}
 Social Membership - Update Affiliate
 {% endblock %}
@@ -9,74 +10,90 @@ Social Membership - Update Affiliate
     <main class="lg:relative">
         {% if messages %}
             {% for message in messages %}
-                <div class="bg-red-100 text-center border px-4 py-3 rounded relative" role="alert">
+                <div class="bg-red-100 text-center border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                     <span class="block sm:inline">{{ message }}</span>
                 </div>
             {% endfor %}
         {% endif %}
+        
         <div class="relative bg-green-100">
             <div class="lg:absolute lg:inset-0">
                 <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
                     <img class="h-56 w-full object-cover lg:absolute lg:h-full"
                         src="https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
-                        alt="">
+                        alt="Affiliate marketing overview">
                 </div>
             </div>
-            <div
-                class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
+            
+            <div class="relative py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
                 <div class="lg:pr-8">
                     <div class="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-                        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                            Social Membership - Add Level 
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                            Social Membership - Update Sell
                         </h2>
                         <p class="mt-4 text-lg text-gray-500 sm:mt-3">
-                            Levels define affiliate marketing level
+                            Update the transaction details for this affiliate sale.
                         </p>
 
                         <form action="" method="POST" enctype="multipart/form-data" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                             {% csrf_token %}
                              
                             <div>
-                                <label for="lead" class="block text-sm font-medium text-gray-700">Sold Amount</label>
+                                <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-gray-700">Sold Amount</label>
                                 <div class="mt-1">
                                     {{ form.amount }}
                                 </div>
+                                {% if form.amount.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.amount.errors.0 }}</p>
+                                {% endif %}
                             </div>
+
                             <div>
-                                <label for="username" class="block text-sm font-medium text-gray-700">Sold By</label>
+                                <label for="{{ form.seller.id_for_label }}" class="block text-sm font-medium text-gray-700">Sold By</label>
                                 <div class="mt-1">
                                     {{ form.seller }}
                                 </div>
+                                {% if form.seller.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.seller.errors.0 }}</p>
+                                {% endif %}
                             </div>
 
                             <div>
-                                <label for="level" class="block text-sm font-medium text-gray-700">Buyer</label>
+                                <label for="{{ form.buyer.id_for_label }}" class="block text-sm font-medium text-gray-700">Buyer</label>
                                 <div class="mt-1">
                                     {{ form.buyer }}
                                 </div>
+                                {% if form.buyer.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.buyer.errors.0 }}</p>
+                                {% endif %}
                             </div>
+
                             <div>
-                                <label for="share_percentage" class="block text-sm font-medium text-gray-700">Location</label>
+                                <label for="{{ form.location.id_for_label }}" class="block text-sm font-medium text-gray-700">Location</label>
                                 <div class="mt-1">
                                     {{ form.location }}
                                 </div>
+                                {% if form.location.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.location.errors.0 }}</p>
+                                {% endif %}
                             </div>
 
-                            {% if form.errors %}
-                                <ul>
-                                    {% for key,value in form.errors.items %}
-                                        <li>{{ value|escape }}</li>
-                                    {% endfor %}
-                                </ul>
+                            {% if form.non_field_errors %}
+                                <div class="sm:col-span-2 rounded-md bg-red-50 p-4">
+                                    <ul class="list-disc list-inside text-sm text-red-700">
+                                        {% for error in form.non_field_errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             {% endif %}
                             
                             <div class="text-right sm:col-span-2">
                                 <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grape-500">
+                                    class="inline-flex justify-center py-2 px-4 shadow-lg text-lg bg-orange-800 hover:bg-orange-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">
                                     Update Sell
                                 </button>
                             </div>
-                        </form>
                         </form>
                     </div>
                 </div>
