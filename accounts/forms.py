@@ -10,14 +10,14 @@ class UserRegistrationForm(forms.ModelForm):
         'valid_images': {"Image uploaded is not in valid form, must be in png or jpg format!"}
     }
     password1 = forms.CharField(label=("Password"),
-                                widget=forms.PasswordInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+                                widget=forms.PasswordInput(attrs={'class': 'block w-full border border-slate-300 py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     password2 = forms.CharField(label=("Password confirmation"),
-                                widget=forms.PasswordInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}),
+                                widget=forms.PasswordInput(attrs={'class': 'block w-full border border-slate-300 py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}),
                                 help_text=("Enter the same password as above, for verification."))
     username = forms.CharField(label=("Please Enter Username"),
-                               widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+                               widget=forms.TextInput(attrs={'class': 'block w-full border border-slate-300 py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     email = forms.EmailField(label=("Please Enter Your Email"),
-                             widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
+                             widget=forms.TextInput(attrs={'class': 'block w-full border border-slate-300 py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     profile_image = forms.ImageField(label=("Please Upload Your Profile Image"),
                                     widget=forms.FileInput(attrs={'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}),
                                     validators=[FileExtensionValidator(['png', 'jpg'])])
